@@ -1,0 +1,50 @@
+name: Keep HTTP Service Awake
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: telegram-keepalive
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check APP_URL
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+        run: |
+          if [ -z "$APP_URL" ]; then
+            echo "Repository secret APP_URL is not configured."
+            exit 1
+          fi
+
+      - name: Ping health endpoint
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+        run: |
+          BASE_URL="${APP_URL%/}"
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt: $BASE_URL/health"
+            if curl --fail --silent --show-error \
+              --connect-timeout 10 \
+              --max-time 25 \
+              --retry 2 \
+              --retry-delay 3 \
+              "$BASE_URL/health"; then
+              echo
+              echo "Service is healthy."
+              exit 0
+            fi
+            sleep 10
+          done
+
+          echo "Health endpoint is unavailable."
+          exit 1
