@@ -1,0 +1,37 @@
+name: Import Full Perimeter Project
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Copy source repository
+        run: |
+          git clone --depth 1 https://github.com/wwgame28/perimeter.git /tmp/source
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github -exec rm -rf {} +
+          rsync -a --exclude='.git/' --exclude='.github/' /tmp/source/ ./
+
+      - name: Verify project
+        run: |
+          test -f app.py
+          test -f requirements.txt
+          test -f telegram_bot/bot.py
+          test -d assets/images
+
+      - name: Commit project
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -A
+          git diff --cached --quiet || git commit -m "Import full Perimeter project"
+          git push
