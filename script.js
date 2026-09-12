@@ -1,102 +1,81 @@
 (() => {
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
 
-  // Motion Primitives-inspired blur/reveal: lightweight local implementation.
-  const reveals = document.querySelectorAll('.reveal');
-  if (prefersReduced || !('IntersectionObserver' in window)) {
-    reveals.forEach(el => el.classList.add('in'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
+  const reveals = $$('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) reveals.forEach(el => el.classList.add('in'));
+  else {
+    const io = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }), {threshold:.12, rootMargin:'0px 0px -45px'});
+    reveals.forEach((el,i) => { el.style.transitionDelay = `${Math.min((i%4)*55,165)}ms`; io.observe(el); });
+  }
+
+  $$('[data-spotlight]').forEach(card => card.addEventListener('pointermove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX-r.left}px`);
+    card.style.setProperty('--my', `${e.clientY-r.top}px`);
+  }));
+
+  if (matchMedia('(pointer:fine)').matches && !reduced) {
+    const cursor = $('.cursor');
+    addEventListener('pointermove', e => { cursor.style.left=`${e.clientX}px`; cursor.style.top=`${e.clientY}px`; cursor.style.opacity='1'; });
+    $$('a,button,.work').forEach(el => {
+      el.addEventListener('pointerenter',()=>cursor.classList.add('big'));
+      el.addEventListener('pointerleave',()=>cursor.classList.remove('big'));
+    });
+    $$('.magnetic').forEach(el => {
+      el.addEventListener('pointermove', e => {
+        const r=el.getBoundingClientRect();
+        el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.11}px,${(e.clientY-r.top-r.height/2)*.11}px)`;
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -35px' });
-    reveals.forEach((el, i) => {
-      el.style.transitionDelay = `${Math.min((i % 5) * 55, 220)}ms`;
-      io.observe(el);
+      el.addEventListener('pointerleave',()=>el.style.transform='');
     });
   }
 
-  // Magic UI-style spotlight effect for interactive cards.
-  document.querySelectorAll('[data-spotlight]').forEach(card => {
-    card.addEventListener('pointermove', e => {
-      const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
-      card.style.setProperty('--my', `${e.clientY - r.top}px`);
-    });
-  });
-
-  // Subtle magnetic action buttons on pointer devices.
-  if (window.matchMedia('(pointer:fine)').matches && !prefersReduced) {
-    document.querySelectorAll('.magnetic').forEach(btn => {
-      btn.addEventListener('pointermove', e => {
-        const r = btn.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width / 2) * 0.12;
-        const y = (e.clientY - r.top - r.height / 2) * 0.12;
-        btn.style.transform = `translate(${x}px, ${y}px)`;
+  const parallax = $$('.parallax');
+  if (!reduced && matchMedia('(pointer:fine)').matches) {
+    let ticking=false;
+    addEventListener('scroll',()=>{
+      if(ticking) return; ticking=true;
+      requestAnimationFrame(()=>{
+        const y=scrollY;
+        parallax.forEach(el=> el.style.translate=`0 ${y*Number(el.dataset.speed||0)}px`);
+        ticking=false;
       });
-      btn.addEventListener('pointerleave', () => btn.style.transform = '');
-    });
-
-    const glow = document.querySelector('.cursor-glow');
-    window.addEventListener('pointermove', e => {
-      glow.style.left = `${e.clientX}px`;
-      glow.style.top = `${e.clientY}px`;
-      glow.style.opacity = '1';
-    });
+    },{passive:true});
   }
 
-  // Origin UI-style segmented filter behavior.
-  const tabs = document.querySelectorAll('.tab');
-  const works = document.querySelectorAll('.work-card');
-  tabs.forEach(tab => tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    const f = tab.dataset.filter;
-    works.forEach(card => card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f));
+  const filters=$$('.filter'), works=$$('.work');
+  filters.forEach(btn=>btn.addEventListener('click',()=>{
+    filters.forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+    const f=btn.dataset.filter;
+    works.forEach(card=>card.classList.toggle('hidden',f!=='all'&&card.dataset.category!==f));
   }));
 
-  // Portfolio lightbox.
-  const dlg = document.getElementById('lightbox');
-  const dlgImg = document.getElementById('lightboxImg');
-  const dlgTitle = document.getElementById('lightboxTitle');
-  const dlgIndex = document.getElementById('lightboxIndex');
-  works.forEach((card, idx) => card.addEventListener('click', () => {
-    dlgImg.className = 'lightbox-sprite ' + card.dataset.sprite;
-    dlgImg.setAttribute('aria-label', card.dataset.title || 'Работа ORLICA TATT');
-    dlgTitle.textContent = card.dataset.title || 'Работа';
-    dlgIndex.textContent = `ORLICA / ${String(idx + 1).padStart(2, '0')}`;
-    if (typeof dlg.showModal === 'function') dlg.showModal();
+  const dlg=$('#lightbox'), dlgImg=$('#lightboxImg');
+  works.forEach((card,i)=>card.addEventListener('click',()=>{
+    dlgImg.className=`lightbox-image sprite ${card.dataset.sprite}`;
+    $('#lightboxTitle').textContent=card.dataset.title||'Работа';
+    $('#lightboxIndex').textContent=`ORLICA / ${String(i+1).padStart(2,'0')}`;
+    dlg.showModal?.();
   }));
-  document.querySelector('.lightbox-close').addEventListener('click', () => dlg.close());
-  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  $('.lightbox-close')?.addEventListener('click',()=>dlg.close());
+  dlg?.addEventListener('click',e=>{if(e.target===dlg) dlg.close()});
 
-  // Style chips.
-  let chosenStyle = 'Графика';
-  document.querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => {
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    chosenStyle = chip.dataset.value;
+  let chosen='Графика';
+  $$('.chip').forEach(chip=>chip.addEventListener('click',()=>{
+    $$('.chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active'); chosen=chip.dataset.value;
   }));
-
-  // Privacy-friendly Telegram handoff. No data is sent to a backend.
-  const form = document.getElementById('tattooForm');
-  const status = document.getElementById('formStatus');
-  form.addEventListener('submit', async (e) => {
+  $('#tattooForm')?.addEventListener('submit', async e => {
     e.preventDefault();
-    const idea = document.getElementById('idea').value.trim();
-    const placement = document.getElementById('placement').value;
-    const size = document.getElementById('size').value;
-    const text = `Привет, Света! Хочу обсудить татуировку.\n\nИдея: ${idea}\nМесто: ${placement}\nРазмер: ${size}\nСтиль: ${chosenStyle}\n\nПодскажите, пожалуйста, по стоимости и ближайшим свободным датам.`;
-    try {
-      await navigator.clipboard.writeText(text);
-      status.textContent = 'Текст заявки скопирован. Открываю Telegram — просто вставь сообщение в чат.';
-    } catch {
-      status.textContent = 'Открываю Telegram. Текст заявки показан ниже: ' + text;
-    }
-    setTimeout(() => window.open('https://t.me/Sveta_orel09', '_blank', 'noopener,noreferrer'), 260);
+    const idea=$('#idea').value.trim(), placement=$('#placement').value, size=$('#size').value;
+    const msg=`Привет, Света! Хочу обсудить тату 👋\n\nИдея: ${idea}\nМесто: ${placement}\nРазмер: ${size}\nПо вайбу: ${chosen}`;
+    try{await navigator.clipboard.writeText(msg); $('#formStatus').textContent='Сообщение скопировано. Открываю Telegram ✦';}
+    catch{ $('#formStatus').textContent='Открываю Telegram. Текст можно скопировать отсюда: '+msg; }
+    setTimeout(()=>window.open('https://t.me/Sveta_orel09','_blank','noopener'),250);
   });
 })();
