@@ -2,32 +2,24 @@ name: Apply Some Time Later display font
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-display-font.yml'
 
 permissions:
   contents: write
 
 jobs:
   patch:
-    if: "${{ github.event.head_commit.message != 'Apply Some Time Later display font' }}"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout
+        uses: actions/checkout@v6
       - name: Apply display font
-        shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
+          cat >> styles.css <<'CSS'
 
-          css = Path('styles.css')
-          text = css.read_text(encoding='utf-8')
-          marker = '/* ORLICA DISPLAY FONT V7 */'
-          if marker in text:
-              text = text.split(marker)[0].rstrip() + '\n'
-
-          block = '''/* ORLICA DISPLAY FONT V7 */
+/* ORLICA DISPLAY FONT V7 */
 @font-face{
   font-family:'Some Time Later ORLICA';
   src:url('https://raw.githubusercontent.com/ctrlcctrlv/some-time-later/master/Some%20Time%20Later.woff2') format('woff2');
@@ -59,20 +51,21 @@ jobs:
   .hero-title{font-size:clamp(58px,18.2vw,84px)}
   .section-intro h2,.about-copy h2,.brief-copy h2{font-size:clamp(42px,12.2vw,61px)}
 }
-'''
-          css.write_text(text.rstrip() + '\n\n' + block, encoding='utf-8')
-
-          html = Path('index.html')
-          h = html.read_text(encoding='utf-8')
-          h = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=7', h)
-          h = re.sub(r'mobile-fix\.css\?v=\d+', 'mobile-fix.css?v=7', h)
-          h = re.sub(r'script\.js\?v=\d+', 'script.js?v=7', h)
-          if 'script.js?v=' not in h:
-              h = h.replace('script.js"', 'script.js?v=7"')
-          html.write_text(h, encoding='utf-8')
+CSS
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          s=re.sub(r'styles\.css\?v=\d+', 'styles.css?v=7', s)
+          s=re.sub(r'mobile-fix\.css\?v=\d+', 'mobile-fix.css?v=7', s)
+          s=re.sub(r'script\.js\?v=\d+', 'script.js?v=7', s)
+          p.write_text(s,encoding='utf-8')
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add styles.css index.html
-          git commit -m "Apply Some Time Later display font" || exit 0
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "Apply Some Time Later display font"
+            git push
+          fi
