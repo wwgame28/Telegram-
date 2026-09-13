@@ -1,0 +1,36 @@
+name: Apply ORLICA mobile fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-mobile-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Patch index and bust cache
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('href="styles.css"', 'href="styles.css?v=6"')
+          if 'mobile-fix.css' not in s:
+              s = s.replace('</head>', '  <link rel="stylesheet" href="mobile-fix.css?v=6" />\n</head>')
+          s = s.replace('src="script.js"', 'src="script.js?v=6"')
+          p.write_text(s, encoding='utf-8')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Apply responsive mobile fix and refresh assets"
+            git push
+          fi
