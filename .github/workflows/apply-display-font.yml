@@ -2,18 +2,20 @@ name: Apply Some Time Later display font
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   patch:
-    if: github.event.head_commit.message != 'Apply Some Time Later display font'
+    if: "${{ github.event.head_commit.message != 'Apply Some Time Later display font' }}"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: Apply display font
+        shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -25,8 +27,7 @@ jobs:
           if marker in text:
               text = text.split(marker)[0].rstrip() + '\n'
 
-          block = r'''
-/* ORLICA DISPLAY FONT V7 */
+          block = '''/* ORLICA DISPLAY FONT V7 */
 @font-face{
   font-family:'Some Time Later ORLICA';
   src:url('https://raw.githubusercontent.com/ctrlcctrlv/some-time-later/master/Some%20Time%20Later.woff2') format('woff2');
@@ -35,15 +36,7 @@ jobs:
   font-display:swap;
 }
 :root{--display-font:'Some Time Later ORLICA','Arial Black',Impact,sans-serif}
-.hero-title,
-.section-intro h2,
-.about-copy h2,
-.brief-copy h2,
-.slots h2,
-.finale h2,
-.quote-break p,
-.process-card h3,
-.logo span{
+.hero-title,.section-intro h2,.about-copy h2,.brief-copy h2,.slots h2,.finale h2,.quote-break p,.process-card h3,.logo span{
   font-family:var(--display-font);
   font-weight:400;
   letter-spacing:.005em;
@@ -67,7 +60,7 @@ jobs:
   .section-intro h2,.about-copy h2,.brief-copy h2{font-size:clamp(42px,12.2vw,61px)}
 }
 '''
-          css.write_text(text.rstrip() + '\n\n' + block.strip() + '\n', encoding='utf-8')
+          css.write_text(text.rstrip() + '\n\n' + block, encoding='utf-8')
 
           html = Path('index.html')
           h = html.read_text(encoding='utf-8')
