@@ -11,3 +11,35 @@
 @media(max-width:560px){:root{--section:72px}.hero{padding-top:84px}.hero-kicker{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hero-title{font-size:clamp(62px,21vw,96px);line-height:.74}.hero-visual{height:118vw;max-height:520px}.hero-photo-a{width:74%;height:86%}.hero-photo-b{width:44%;height:49%}.hero-copy{font-size:16px;line-height:1.45}.hero-actions{display:grid;grid-template-columns:1fr;gap:13px}.big-cta{width:100%;justify-content:space-between;padding:17px 18px}.text-link{padding-left:2px}.marquee-track{font-size:14px;gap:24px;padding:14px 0}.section-intro h2,.about-copy h2,.brief-copy h2{font-size:clamp(48px,15.5vw,76px);line-height:.84}.gallery{grid-template-columns:1fr;grid-auto-rows:auto;gap:10px}.work,.work-xl,.work-sm,.work-md,.work-wide,.work-tall{grid-column:auto;grid-row:auto;height:auto;aspect-ratio:4/5}.work:nth-child(2n){aspect-ratio:1/1}.work:nth-child(4n){aspect-ratio:5/4}.work-caption{font-size:18px}.filters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;-webkit-overflow-scrolling:touch}.filter{flex:0 0 auto}.quote-break p{font-size:clamp(31px,10vw,48px)}.quote-break span{line-height:1.5}.about-collage{height:124vw;max-height:560px}.portrait{width:67%;height:76%;left:2%}.about-work{width:56%;height:49%;border-width:6px}.stamp{width:94px;height:94px;font-size:12px}.about-copy .lead{font-size:19px}.process-card{padding:24px}.slots h2{font-size:clamp(47px,14.5vw,70px);line-height:.84}.slots p:last-child{font-size:15px}.circle-cta{width:180px;height:180px;flex-basis:180px;font-size:24px}.brief{padding-top:78px;padding-bottom:78px}.brief-form textarea,.brief-form select{font-size:25px}.brief-form label{padding:21px 0}.chips{gap:7px}.chip{padding:10px 12px}.faq summary{font-size:22px;line-height:1.05}.faq details p{font-size:15px}.finale{min-height:70svh;padding:84px var(--pad) 110px}.finale h2{font-size:clamp(48px,14vw,70px);line-height:.84}.finale-word{font-size:45vw}.final-cta{width:100%;max-width:360px;padding:18px}.footer,footer{flex-wrap:wrap;row-gap:14px}.lightbox{width:100vw;height:100svh;max-width:none;max-height:none;margin:0}.lightbox-image{height:calc(100% - 64px)}.lightbox-meta{height:64px;font-size:10px}}
 @media(min-width:1500px){.hero-title{font-size:220px}.hero-stage{grid-template-columns:470px 1fr}.hero-visual{height:620px}.gallery{grid-auto-rows:92px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none;filter:none}}
+/* ORLICA DISPLAY FONT V7 */
+@font-face{
+  font-family:'Some Time Later ORLICA';
+  src:url('https://raw.githubusercontent.com/ctrlcctrlv/some-time-later/master/Some%20Time%20Later.woff2') format('woff2');
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+}
+:root{--display-font:'Some Time Later ORLICA','Arial Black',Impact,sans-serif}
+.hero-title,.section-intro h2,.about-copy h2,.brief-copy h2,.slots h2,.finale h2,.quote-break p,.process-card h3,.logo span{
+  font-family:var(--display-font);
+  font-weight:400;
+  letter-spacing:.005em;
+}
+.hero-title{line-height:.76;letter-spacing:-.012em}
+.section-intro h2,.about-copy h2,.brief-copy h2,.slots h2,.finale h2{line-height:.9;letter-spacing:0}
+.quote-break p{line-height:1.02;letter-spacing:0}
+.process-card h3{line-height:1.02;letter-spacing:.01em}
+.logo span{letter-spacing:.015em;font-size:25px}
+.outline,.outline-dark{-webkit-text-stroke-width:1.4px}
+@media(max-width:860px){
+  .hero-title{font-size:clamp(62px,19vw,112px);line-height:.8}
+  .section-intro h2,.about-copy h2,.brief-copy h2{font-size:clamp(46px,13vw,70px);line-height:.94}
+  .slots h2,.finale h2{font-size:clamp(46px,12.8vw,68px);line-height:.94}
+  .quote-break p{font-size:clamp(31px,8.6vw,45px);line-height:1.05}
+  .process-card h3{font-size:clamp(29px,8vw,40px)}
+  .logo span{font-size:23px}
+}
+@media(max-width:430px){
+  .hero-title{font-size:clamp(58px,18.2vw,84px)}
+  .section-intro h2,.about-copy h2,.brief-copy h2{font-size:clamp(42px,12.2vw,61px)}
+}
