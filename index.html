@@ -3,205 +3,236 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f4ef" />
-  <meta name="description" content="ORLICA TATT — работы Светы, запись на тату-сеанс через Telegram." />
+  <meta name="theme-color" content="#f0eee8" />
+  <meta name="description" content="ORLICA TATT — татуировки Светы. Графика, fine line, идеи с характером и запись через Telegram." />
+  <meta name="color-scheme" content="light dark" />
   <title>ORLICA TATT — Света</title>
-  <link rel="stylesheet" href="styles.css?v=9" />
-  <link rel="stylesheet" href="mobile-fix.css?v=9" />
-  <link rel="stylesheet" href="type-v8.css?v=9" />
+  <link rel="preload" href="assets/sveta-red.jpg" as="image" />
+  <link rel="stylesheet" href="orlica-v2.css?v=1" />
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="cursor" aria-hidden="true"></div>
-  <div class="side-word" aria-hidden="true">ORLICA / TATT</div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+  <div class="cursor-follower" aria-hidden="true"><i></i></div>
 
-  <header class="topbar">
-    <a class="logo magnetic" href="#top" aria-label="ORLICA TATT — наверх">
-      <span>ORLICA</span><small>TATT / SVETA</small>
+  <div class="intro-gate" id="introGate" role="dialog" aria-label="Вход на сайт ORLICA TATT">
+    <div class="intro-lines" aria-hidden="true"></div>
+    <button class="intro-brand" id="enterSite" type="button" aria-label="Открыть сайт ORLICA TATT">
+      <span class="intro-overline">TATTOO / BLAGOVESHCHENSK / 2026</span>
+      <span class="intro-word" aria-hidden="true">
+        <i>O</i><i>R</i><i>L</i><i>I</i><i>C</i><i>A</i>
+      </span>
+      <span class="intro-sub">TATT / SVETA</span>
+      <span class="intro-hint">нажми, чтобы войти ↗</span>
+    </button>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand magnetic" href="#top" aria-label="ORLICA TATT — наверх">
+      <b>ORLICA</b><span>TATT / SVETA</span>
     </a>
-    <nav class="nav">
+    <nav class="desktop-nav" aria-label="Основная навигация">
       <a href="#works">работы</a>
-      <a href="#about">Света</a>
-      <a href="#brief">запись</a>
+      <a href="#about">обо мне</a>
+      <a href="#process">процесс</a>
+      <a href="#faq">FAQ</a>
     </nav>
-    <a class="mini-cta magnetic" href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">написать ↗</a>
+    <a class="header-cta magnetic" href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">записаться <span>↗</span></a>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="hero-kicker reveal">Йопи ей 🎀 / ORLICA TATT / 2026</div>
-      <div class="hero-title-art reveal"><img src="assets/type/hero-title.svg" alt="ТАТУ БЕЗ СКУКИ"></div>
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-grid-lines" aria-hidden="true"></div>
+      <div class="hero-meta reveal-up">
+        <span>ТАТУ КАК СПОСОБ БЫТЬ СОБОЙ</span>
+        <span>54.72°N / 127.54°E</span>
+      </div>
 
-      <div class="hero-stage">
-        <div class="hero-copy reveal">
-          <p class="hello">Гуд ив, товарищи 💋</p>
-          <p>Я Света. Делаю татуировки, люблю графику, тонкие линии, странных зверей и идеи с характером. Если в голове уже крутится «хочу вот что-то такое» — кидай, разберёмся.</p>
-          <div class="hero-actions">
-            <a class="big-cta magnetic" href="#brief">Хочу тату <span>↗</span></a>
-            <a class="text-link" href="#works">сначала работы ↓</a>
-          </div>
-        </div>
+      <div class="hero-title-wrap reveal-up">
+        <h1 id="heroTitle" class="hero-title">
+          <span>ТАТУ</span>
+          <span class="hero-outline">БЕЗ</span>
+          <span>СКУКИ</span>
+        </h1>
+        <svg class="hero-scribble" viewBox="0 0 420 70" aria-hidden="true"><path d="M8 42C76 12 148 19 222 33c59 11 118 10 190-10M30 59c93-26 193-28 330-8"/></svg>
+      </div>
 
-        <div class="hero-visual reveal" aria-label="Коллаж ORLICA TATT">
-          <div class="hero-photo hero-photo-a parallax" data-speed=".045">
-            <div class="sprite sprite-cat" role="img" aria-label="Работа ORLICA TATT"></div>
-            <span class="photo-code">WORK / ORLICA</span>
-          </div>
-          <div class="hero-photo hero-photo-b parallax" data-speed="-.025">
-            <img src="assets/sveta-red.jpg" alt="Света, тату-мастер ORLICA TATT" />
-            <span class="photo-code">SVETA / TATT</span>
-          </div>
-          <div class="ink-ring ring-a" aria-hidden="true"></div>
-          <div class="ink-ring ring-b" aria-hidden="true"></div>
+      <div class="hero-copy reveal-up">
+        <p><strong>Привет, я Света.</strong> Бью татуировки, люблю графику, fine line и идеи с характером. Можно прийти с референсом, мемом или честным «я пока хз, но хочу красиво».</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark magnetic" href="#brief">хочу тату <span>↗</span></a>
+          <a class="text-link" href="#works">смотреть работы <span>↓</span></a>
         </div>
       </div>
 
-      <div class="scroll-note">листай, там вся красота ↓</div>
+      <div class="hero-media iso-focus reveal-scale" id="heroMedia" data-cursor="СВЕТА">
+        <div class="hero-photo-shell">
+          <img src="assets/sveta-red.jpg" alt="Света, тату-мастер ORLICA TATT" />
+          <span class="photo-label">SVETA / ORLICA</span>
+        </div>
+        <div class="hero-note note-a"><b>LINES</b><b>IDEAS</b><b>PEOPLE</b><b>TATTOOS</b></div>
+        <div class="hero-note note-b">GOOD TATTOOS<br>BRIGHTER PEOPLE</div>
+        <div class="orbit orbit-a" aria-hidden="true"></div>
+        <div class="orbit orbit-b" aria-hidden="true"></div>
+        <div class="cross-mark" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-side-card reveal-up" aria-hidden="true">
+        <span>БОЛЬШЕ<br>ЧЕМ ТАТУ</span>
+        <div class="side-art sprite sprite-floral"></div>
+        <b>ORLICA</b>
+      </div>
+
+      <div class="hero-scroll reveal-up">листай / там вся красота <span>↓</span></div>
     </section>
 
-    <section class="marquee" aria-label="Стили татуировок">
-      <div class="marquee-track">
+    <section class="ticker" aria-label="Стили татуировок">
+      <div class="ticker-track">
         <span>GRAPHIC</span><i>✦</i><span>FINE LINE</span><i>✦</i><span>BLACKWORK</span><i>✦</i><span>LETTERING</span><i>✦</i><span>WEIRD CUTE STUFF</span><i>✦</i>
         <span>GRAPHIC</span><i>✦</i><span>FINE LINE</span><i>✦</i><span>BLACKWORK</span><i>✦</i><span>LETTERING</span><i>✦</i><span>WEIRD CUTE STUFF</span><i>✦</i>
       </div>
     </section>
 
-    <section id="works" class="works section-pad">
-      <div class="section-intro reveal">
-        <p class="eyebrow">01 / РАБОТЫ</p>
-        <img class="display-heading" src="assets/type/works-title.svg" alt="Ну что за нежнятина.">
-        <p class="intro-note">Здесь мои реальные работы. Можно спокойно посмотреть стиль, детали и понять, совпали ли мы по вайбу.</p>
-      </div>
-
-      <div class="filters reveal" role="tablist" aria-label="Фильтр работ">
-        <button class="filter active" data-filter="all" type="button">все</button>
-        <button class="filter" data-filter="graphic" type="button">графика</button>
-        <button class="filter" data-filter="fine" type="button">нежные</button>
-        <button class="filter" data-filter="letter" type="button">надписи</button>
-      </div>
-
-      <div class="gallery">
-        <button class="work work-xl reveal" data-category="graphic" data-sprite="sprite-angel" data-title="Графика" type="button">
-          <div class="sprite sprite-angel"></div><span class="work-no">01</span><span class="work-caption">графика, которая не шепчет</span>
-        </button>
-        <button class="work work-sm reveal" data-category="fine" data-sprite="sprite-fairy" data-title="Fine line" type="button">
-          <div class="sprite sprite-fairy"></div><span class="work-no">02</span><span class="work-caption">тонко / нежно / всё как надо</span>
-        </button>
-        <button class="work work-md reveal" data-category="graphic" data-sprite="sprite-owls" data-title="Парные работы" type="button">
-          <div class="sprite sprite-owls"></div><span class="work-no">03</span><span class="work-caption">парные булочки!!!</span>
-        </button>
-        <button class="work work-wide reveal" data-category="graphic" data-sprite="sprite-eyes" data-title="Миниатюры" type="button">
-          <div class="sprite sprite-eyes"></div><span class="work-no">04</span><span class="work-caption">маленькое, но характерное</span>
-        </button>
-        <button class="work work-tall reveal" data-category="graphic" data-sprite="sprite-tribal" data-title="Black graphic" type="button">
-          <div class="sprite sprite-tribal"></div><span class="work-no">05</span><span class="work-caption">чуть темнее, чуть злее</span>
-        </button>
-        <button class="work work-sm reveal" data-category="letter" data-sprite="sprite-script" data-title="Lettering" type="button">
-          <div class="sprite sprite-script"></div><span class="work-no">06</span><span class="work-caption">буквы тоже умеют кусаться</span>
-        </button>
-        <button class="work work-md reveal" data-category="fine" data-sprite="sprite-hand" data-title="Minimal" type="button">
-          <div class="sprite sprite-hand"></div><span class="work-no">07</span><span class="work-caption">небольшая штучка ✦</span>
-        </button>
-        <button class="work work-wide reveal" data-category="graphic" data-sprite="sprite-floral" data-title="Floral graphic" type="button">
-          <div class="sprite sprite-floral"></div><span class="work-no">08</span><span class="work-caption">когда «просто» заняло дольше всего</span>
-        </button>
-      </div>
+    <section class="statement section-shell" aria-label="Подход Светы">
+      <div class="statement-index reveal-up">00 / МАНИФЕСТ</div>
+      <p class="statement-text split-reveal">Не делаю тату ради галочки. Ищу форму, которая будет выглядеть твоей, а не просто красивой картинкой из сохранёнок.</p>
+      <div class="statement-stamp reveal-scale">ORLICA<br>TATT<br>SVETA</div>
     </section>
 
-    <section class="quote-break">
-      <p class="reveal">«Чем проще выглядит работа,<br>тем дольше и сложнее ты с ней возишься»</p>
-      <span class="reveal">— Света, и это очень похоже на правду 🦄</span>
-    </section>
-
-    <section id="about" class="about section-pad">
-      <div class="about-collage reveal">
-        <div class="portrait"><img src="assets/sveta-red.jpg" alt="Света"></div>
-        <div class="about-work sprite sprite-cat"></div>
-        <div class="stamp">ORLICA<br>TATT<br>SVETA</div>
-      </div>
-      <div class="about-copy reveal">
-        <p class="eyebrow">02 / ЙОПИ ЕЙ</p>
-        <img class="display-heading" src="assets/type/about-title.svg" alt="Я Света. Можно просто на ты.">
-        <p class="lead">Можно прийти с референсом, мемом, рисунком на салфетке или честным «Свет, я пока вообще не знаю, но хочу красиво». Дальше уже вместе докрутим.</p>
-        <p>В канале показываю свежие работы, свободные окошки и всё, что происходит между сеансами. Там же проще всего поймать меня и записаться.</p>
-        <a class="outline-cta magnetic" href="https://t.me/orlica_tatt" target="_blank" rel="noreferrer">зайти в канал ↗</a>
-      </div>
-    </section>
-
-    <section class="process section-pad inverted">
-      <div class="section-intro reveal">
-        <p class="eyebrow light">03 / КАК ЭТО РАБОТАЕТ</p>
-        <img class="display-heading" src="assets/type/process-title.svg" alt="Без квеста на 48 уровней.">
-      </div>
-      <div class="process-grid">
-        <article class="process-card reveal spotlight" data-spotlight><b>01</b><h3>Кидаешь идею</h3><p>Пишешь мне, кидаешь референс, место и примерный размер. Или просто: «Свет, хочу что-то странненькое».</p></article>
-        <article class="process-card reveal spotlight" data-spotlight><b>02</b><h3>Разбираемся</h3><p>Прикидываем композицию, размер, место, стоимость и выбираем свободное окошко.</p></article>
-        <article class="process-card reveal spotlight" data-spotlight><b>03</b><h3>Делаем красоту</h3><p>На месте примеряем, докручиваем детали, делаем тату. После расскажу, как спокойно всё заживить.</p></article>
-      </div>
-    </section>
-
-    <section class="slots section-pad">
-      <div class="slots-text reveal">
-        <p class="eyebrow">04 / СВОБОДНЫЕ ОКНА</p>
-        <img class="display-heading" src="assets/type/slots-title.svg" alt="Товарищи, места имеют свойство заканчиваться.">
-        <p>Окошки двигаются быстрее, чем я успеваю красиво рисовать календарики. Актуальную дату лучше спросить у меня напрямую.</p>
-      </div>
-      <a class="circle-cta magnetic reveal" href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer"><span>узнать<br>дату</span><b>↗</b></a>
-    </section>
-
-    <section id="brief" class="brief section-pad inverted">
-      <div class="brief-copy reveal">
-        <p class="eyebrow light">05 / ХОЧУ ТАТУ</p>
-        <img class="display-heading" src="assets/type/brief-title.svg" alt="Ну давайте уже что-нибудь придумаем.">
-        <p>Оставь пару деталей про идею. Сайт соберёт всё в одно сообщение и откроет Telegram — тебе останется только отправить.</p>
-      </div>
-
-      <form class="brief-form reveal" id="tattooForm">
-        <label><span>Что хочется?</span><textarea id="idea" rows="4" placeholder="Например: странный кот, тонкая графика, сантиметров 8…" required></textarea></label>
-        <div class="form-row">
-          <label><span>Куда?</span><select id="placement"><option>Рука</option><option>Предплечье</option><option>Нога</option><option>Спина</option><option>Рёбра</option><option>Другое</option></select></label>
-          <label><span>Размер?</span><select id="size"><option>До 5 см</option><option>5–10 см</option><option>10–20 см</option><option>20+ см</option><option>Хз пока</option></select></label>
+    <section id="works" class="works section-shell">
+      <div class="section-head reveal-up">
+        <div>
+          <span class="eyebrow">01 / РАБОТЫ</span>
+          <h2>ТАТУ — ЭТО<br><em>ИСТОРИИ</em> НА КОЖЕ</h2>
         </div>
-        <div class="style-row"><span>По вайбу:</span><div class="chips"><button type="button" class="chip active" data-value="Графика">графика</button><button type="button" class="chip" data-value="Fine line">нежно</button><button type="button" class="chip" data-value="Надпись">буквы</button><button type="button" class="chip" data-value="Не знаю">хз, помогите</button></div></div>
-        <button class="submit magnetic" type="submit">собрать сообщение <span>↗</span></button>
-        <p id="formStatus" class="form-status" aria-live="polite"></p>
+        <p>Микс графики, тонких линий, странных персонажей и аккуратных деталей. Нажми на любую работу, чтобы рассмотреть.</p>
+      </div>
+
+      <div class="filters reveal-up" role="tablist" aria-label="Фильтр работ">
+        <button class="filter active" type="button" data-filter="all">все</button>
+        <button class="filter" type="button" data-filter="graphic">графика</button>
+        <button class="filter" type="button" data-filter="fine">fine line</button>
+        <button class="filter" type="button" data-filter="letter">надписи</button>
+      </div>
+
+      <div class="editorial-grid" id="gallery">
+        <button class="work-card work-card-a iso-card" data-category="graphic" data-sprite="sprite-angel" data-title="Графика" type="button" data-cursor="OPEN">
+          <div class="sprite sprite-angel"></div><span class="work-num">01</span><span class="work-label">GRAPHIC / CHARACTER</span>
+        </button>
+        <button class="work-card work-card-b iso-card" data-category="fine" data-sprite="sprite-fairy" data-title="Fine line" type="button" data-cursor="OPEN">
+          <div class="sprite sprite-fairy"></div><span class="work-num">02</span><span class="work-label">FINE / SOFT</span>
+        </button>
+        <button class="work-card work-card-c iso-card" data-category="graphic" data-sprite="sprite-owls" data-title="Парные работы" type="button" data-cursor="OPEN">
+          <div class="sprite sprite-owls"></div><span class="work-num">03</span><span class="work-label">PAIR / STORY</span>
+        </button>
+        <article class="grid-quote reveal-up"><span>“</span><p>ХОРОШЕЕ ТАТУ<br>НАЧИНАЕТСЯ<br>С ХОРОШЕГО ДИАЛОГА.</p><small>— СВЕТА</small></article>
+        <button class="work-card work-card-d iso-card" data-category="graphic" data-sprite="sprite-eyes" data-title="Миниатюры" type="button" data-cursor="OPEN">
+          <div class="sprite sprite-eyes"></div><span class="work-num">04</span><span class="work-label">MINI / DETAIL</span>
+        </button>
+        <button class="work-card work-card-e iso-card" data-category="graphic" data-sprite="sprite-tribal" data-title="Black graphic" type="button" data-cursor="OPEN">
+          <div class="sprite sprite-tribal"></div><span class="work-num">05</span><span class="work-label">BLACK / SHARP</span>
+        </button>
+        <button class="work-card work-card-f iso-card" data-category="letter" data-sprite="sprite-script" data-title="Lettering" type="button" data-cursor="OPEN">
+          <div class="sprite sprite-script"></div><span class="work-num">06</span><span class="work-label">LETTER / SCRIPT</span>
+        </button>
+        <button class="work-card work-card-g iso-card" data-category="fine" data-sprite="sprite-hand" data-title="Minimal" type="button" data-cursor="OPEN">
+          <div class="sprite sprite-hand"></div><span class="work-num">07</span><span class="work-label">MINIMAL / HAND</span>
+        </button>
+        <button class="work-card work-card-h iso-card" data-category="graphic" data-sprite="sprite-floral" data-title="Floral graphic" type="button" data-cursor="OPEN">
+          <div class="sprite sprite-floral"></div><span class="work-num">08</span><span class="work-label">FLORAL / GRAPHIC</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="about" class="about section-shell">
+      <div class="about-media reveal-scale" data-cursor="SVETA">
+        <div class="about-photo"><img src="assets/sveta-red.jpg" alt="Света" /></div>
+        <div class="about-tattoo sprite sprite-cat"></div>
+        <div class="about-index">02 / ABOUT</div>
+      </div>
+      <div class="about-copy reveal-up">
+        <span class="eyebrow">ЙОПИ ЕЙ ✦</span>
+        <h2>Я СВЕТА.<br><em>МОЖНО</em> ПРОСТО<br>НА ТЫ.</h2>
+        <p class="lead">Люблю, когда тату выглядит живой, а не стерильной картинкой. Поэтому можно не приходить с готовым техническим заданием на восемь страниц. Человечество переживёт.</p>
+        <p>Покажи, что нравится, скажи место и примерный размер. Остальное докрутим вместе.</p>
+        <a class="btn btn-outline magnetic" href="https://t.me/orlica_tatt" target="_blank" rel="noreferrer">канал Светы <span>↗</span></a>
+      </div>
+    </section>
+
+    <section id="process" class="process section-dark">
+      <div class="section-shell">
+        <div class="section-head light reveal-up">
+          <div><span class="eyebrow">03 / КАК ЭТО РАБОТАЕТ</span><h2>БЕЗ КВЕСТА<br>НА <em>48</em> УРОВНЕЙ</h2></div>
+          <p>Три этапа. Никаких менеджеров, лабиринтов из форм и звонка «мы вам перезвоним».</p>
+        </div>
+        <div class="process-grid">
+          <article class="process-card spotlight reveal-up" data-spotlight><span>01</span><b>ОБСУЖДАЕМ ИДЕЮ</b><p>Ты кидаешь референс, место и размер. Если референса нет — тоже не катастрофа.</p><i>↗</i></article>
+          <article class="process-card spotlight reveal-up" data-spotlight><span>02</span><b>СОЗДАЁМ ЭСКИЗ</b><p>Подбираем композицию и детали, чтобы работа нормально жила на теле, а не только на экране.</p><i>↗</i></article>
+          <article class="process-card spotlight reveal-up" data-spotlight><span>03</span><b>ДЕЛАЕМ ТАТУ</b><p>Примеряем, при необходимости поправляем и спокойно делаем работу. После — уход и связь.</p><i>↗</i></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking-banner section-shell reveal-up">
+      <div class="telegram-icon" aria-hidden="true">↗</div>
+      <div><span>ЗАПИСЬ ЧЕРЕЗ TELEGRAM</span><p>Быстро отвечаю, помогаю с идеей и свободными датами.</p></div>
+      <a class="btn btn-light magnetic" href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">написать в Telegram <span>↗</span></a>
+      <div class="booking-words">ИДЕИ<br>ЭСКИЗЫ<br>КОНСУЛЬТАЦИЯ<br>ДАТЫ</div>
+    </section>
+
+    <section id="brief" class="brief section-shell">
+      <div class="brief-intro reveal-up">
+        <span class="eyebrow">04 / ХОЧУ ТАТУ</span>
+        <h2>СОБЕРЁМ<br><em>СООБЩЕНИЕ</em><br>ЗА ТЕБЯ</h2>
+        <p>Заполни пару полей. Сайт соберёт нормальное сообщение и откроет Telegram. Потому что копировать шаблон руками в 2026 году уже как-то неловко.</p>
+      </div>
+      <form class="brief-form reveal-up" id="tattooForm">
+        <label class="field"><span>01 / Что хочется?</span><textarea id="idea" rows="4" placeholder="Например: тонкий странный кот, 8–10 см…" required></textarea></label>
+        <div class="field-row">
+          <label class="field"><span>02 / Куда?</span><select id="placement"><option>Рука</option><option>Предплечье</option><option>Нога</option><option>Спина</option><option>Рёбра</option><option>Другое</option></select></label>
+          <label class="field"><span>03 / Размер?</span><select id="size"><option>До 5 см</option><option>5–10 см</option><option>10–20 см</option><option>20+ см</option><option>Пока не знаю</option></select></label>
+        </div>
+        <div class="style-picker"><span>04 / По вайбу</span><div class="chips"><button class="chip active" type="button" data-value="Графика">графика</button><button class="chip" type="button" data-value="Fine line">fine line</button><button class="chip" type="button" data-value="Надпись">надпись</button><button class="chip" type="button" data-value="Не знаю">хз, помогите</button></div></div>
+        <button class="submit magnetic" type="submit">собрать и открыть Telegram <span>↗</span></button>
+        <p class="form-status" id="formStatus" aria-live="polite"></p>
       </form>
     </section>
 
-    <section class="faq section-pad">
-      <div class="section-intro reveal"><p class="eyebrow">06 / ВОПРОСИКИ</p><img class="display-heading" src="assets/type/faq-title.svg" alt="Перед тем как написать."></div>
+    <section id="faq" class="faq section-shell">
+      <div class="faq-title reveal-up"><span class="eyebrow">05 / FAQ</span><h2>ВОПРОСЫ,<br>КОТОРЫЕ <em>НОРМАЛЬНО</em><br>ЗАДАВАТЬ</h2></div>
       <div class="faq-list">
-        <details class="reveal"><summary>А сколько стоит?<span>+</span></summary><p>Зависит от размера, сложности и места. Кидай идею — я сориентирую уже по конкретной работе.</p></details>
-        <details class="reveal"><summary>Можно со своим референсом?<span>+</span></summary><p>Да. Референс нужен, чтобы понять направление. Копировать один в один чужую работу — так себе затея, лучше адаптировать под тебя.</p></details>
-        <details class="reveal"><summary>Когда есть свободное окно?<span>+</span></summary><p>Даты меняются, поэтому актуальнее всего написать мне в Telegram.</p></details>
-        <details class="reveal"><summary>Я вообще не знаю, что хочу.<span>+</span></summary><p>Вообще нормально. Пришли пару картинок или просто опиши настроение — иногда этого уже хватает, чтобы начать.</p></details>
+        <details class="faq-item reveal-up"><summary><span>Это больно?</span><i>+</i></summary><div><p>Ощущения зависят от места и твоей чувствительности. Перед сеансом объясню, чего ждать и как подготовиться.</p></div></details>
+        <details class="faq-item reveal-up"><summary><span>Сколько стоит тату?</span><i>+</i></summary><div><p>Цена зависит от размера, сложности и места. Кидай идею — сориентирую по конкретной работе.</p></div></details>
+        <details class="faq-item reveal-up"><summary><span>Можно со своим референсом?</span><i>+</i></summary><div><p>Да. Референс нужен, чтобы понять направление. Чужую работу один в один не копирую — адаптирую идею под тебя.</p></div></details>
+        <details class="faq-item reveal-up"><summary><span>А если я вообще не знаю, что хочу?</span><i>+</i></summary><div><p>Тоже нормально. Пришли пару картинок, настроение, место на теле или даже мем. С этого уже можно начать.</p></div></details>
       </div>
     </section>
 
-    <section class="finale inverted">
-      <div class="finale-word" aria-hidden="true">ORLICA</div>
-      <div class="finale-inner reveal">
-        <p>Ну всё, товарищи 💋</p>
-        <img class="display-heading" src="assets/type/final-title.svg" alt="Если идея уже сидит в голове — тащи её сюда.">
-        <a class="final-cta magnetic" href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">написать Свете ↗</a>
+    <section class="final-cta section-dark">
+      <div class="final-bg sprite sprite-floral" aria-hidden="true"></div>
+      <div class="final-lines" aria-hidden="true"></div>
+      <div class="final-inner reveal-up">
+        <span>ТВОЯ ИСТОРИЯ / ТВОЯ КОЖА</span>
+        <h2>ЗАПИСАТЬСЯ<br>НА ТАТУ <i>↗</i></h2>
+        <a class="final-link magnetic" href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">написать Свете</a>
       </div>
     </section>
   </main>
 
-  <footer>
-    <span>ORLICA TATT © 2026</span>
-    <a href="https://t.me/orlica_tatt" target="_blank" rel="noreferrer">канал ↗</a>
-    <a href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">запись ↗</a>
+  <footer class="footer">
+    <div class="footer-brand"><b>ORLICA</b><span>TATT / SVETA</span></div>
+    <nav><a href="#top">главная</a><a href="#works">работы</a><a href="#about">обо мне</a><a href="#faq">FAQ</a></nav>
+    <div class="footer-links"><a href="https://t.me/orlica_tatt" target="_blank" rel="noreferrer">канал ↗</a><a href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">запись ↗</a></div>
   </footer>
 
-  <a class="mobile-sticky" href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">хочу тату <b>↗</b></a>
+  <a class="mobile-book" href="https://t.me/Sveta_orel09" target="_blank" rel="noreferrer">записаться <b>↗</b></a>
 
   <dialog id="lightbox" class="lightbox">
-    <button class="lightbox-close" aria-label="Закрыть">×</button>
+    <button class="lightbox-close" type="button" aria-label="Закрыть">×</button>
     <div id="lightboxImg" class="lightbox-image sprite"></div>
     <div class="lightbox-meta"><span id="lightboxIndex">ORLICA / 01</span><b id="lightboxTitle">Работа</b></div>
   </dialog>
 
-  <script src="script.js?v=9"></script>
+  <script src="orlica-v2.js?v=1"></script>
 </body>
 </html>
