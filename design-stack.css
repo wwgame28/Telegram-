@@ -1,0 +1,215 @@
+/* ORLICA Design Stack v1
+   Sources used as design-time references:
+   - UI UX Pro Max (nextlevelbuilder)
+   - editorial asymmetry / modular grid / dynamic composition
+   - Animos motion patterns (Iso Focus / Cascade / Orbit), reimplemented locally
+   No proprietary Animos code is copied or loaded. */
+
+html[data-design-stack="orlica-pro"]{
+  --ds-line:rgba(10,10,10,.16);
+  --ds-soft:rgba(10,10,10,.055);
+  --ds-ease:cubic-bezier(.2,.78,.18,1);
+  --ds-tilt-x:0deg;
+  --ds-tilt-y:0deg;
+  --ds-focus-x:0px;
+  --ds-focus-y:0px;
+}
+
+html[data-design-stack="orlica-pro"] body{
+  position:relative;
+}
+
+html[data-design-stack="orlica-pro"] body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,transparent calc(25% - .5px),var(--ds-soft) 25%,transparent calc(25% + .5px)),
+    linear-gradient(90deg,transparent calc(50% - .5px),var(--ds-soft) 50%,transparent calc(50% + .5px)),
+    linear-gradient(90deg,transparent calc(75% - .5px),var(--ds-soft) 75%,transparent calc(75% + .5px));
+  background-size:100% 100%;
+}
+
+/* Asymmetrical editorial composition */
+html[data-design-stack="orlica-pro"] .hero-stage,
+html[data-design-stack="orlica-pro"] .section-intro,
+html[data-design-stack="orlica-pro"] .about,
+html[data-design-stack="orlica-pro"] .brief{
+  position:relative;
+}
+
+html[data-design-stack="orlica-pro"] .hero-stage::before,
+html[data-design-stack="orlica-pro"] .section-intro::before{
+  content:"";
+  position:absolute;
+  height:1px;
+  background:currentColor;
+  opacity:.2;
+  transform-origin:left center;
+  pointer-events:none;
+}
+
+html[data-design-stack="orlica-pro"] .hero-stage::before{
+  width:min(28vw,360px);
+  right:-3%;
+  top:7%;
+  transform:rotate(-9deg);
+}
+
+html[data-design-stack="orlica-pro"] .section-intro::before{
+  width:min(18vw,240px);
+  left:40%;
+  top:-18px;
+  transform:rotate(7deg);
+}
+
+/* Modular editorial grid */
+html[data-design-stack="orlica-pro"] .gallery{
+  position:relative;
+  isolation:isolate;
+}
+
+html[data-design-stack="orlica-pro"] .gallery::before{
+  content:"";
+  position:absolute;
+  inset:-18px;
+  z-index:-1;
+  pointer-events:none;
+  border-top:1px solid var(--ds-line);
+  border-bottom:1px solid var(--ds-line);
+  background-image:linear-gradient(90deg,var(--ds-soft) 1px,transparent 1px);
+  background-size:calc(100% / 12) 100%;
+}
+
+html[data-design-stack="orlica-pro"] .work{
+  transform-origin:50% 70%;
+  will-change:transform,opacity;
+  transition:
+    transform .82s var(--ds-ease),
+    opacity .62s ease,
+    filter .35s ease;
+}
+
+html[data-design-stack="orlica-pro"].motion-enhanced .gallery[data-motion="iso-cascade"] .work:not(.motion-in){
+  opacity:.001;
+  transform:perspective(1000px) translate3d(0,42px,-80px) rotateX(7deg) rotateZ(var(--ds-card-rot,0deg));
+}
+
+html[data-design-stack="orlica-pro"].motion-enhanced .gallery[data-motion="iso-cascade"] .work.motion-in{
+  opacity:1;
+  transform:perspective(1000px) translate3d(0,0,0) rotateX(0deg) rotateZ(var(--ds-card-rot,0deg));
+  transition-delay:var(--ds-delay,0ms);
+}
+
+html[data-design-stack="orlica-pro"] .gallery .work:nth-child(2),
+html[data-design-stack="orlica-pro"] .gallery .work:nth-child(6){--ds-card-rot:-.45deg}
+html[data-design-stack="orlica-pro"] .gallery .work:nth-child(4),
+html[data-design-stack="orlica-pro"] .gallery .work:nth-child(7){--ds-card-rot:.4deg}
+
+/* Animos-inspired Iso Focus, implemented from scratch */
+html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]{
+  perspective:1100px;
+  transform-style:preserve-3d;
+}
+
+html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"] .hero-photo{
+  transition:transform .28s var(--ds-ease),filter .28s ease;
+  backface-visibility:hidden;
+}
+
+html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"] .hero-photo-a{
+  transform:rotate(2.4deg) translate3d(var(--ds-a-x,0px),var(--ds-a-y,0px),var(--ds-a-z,0px)) rotateX(var(--ds-a-rx,0deg)) rotateY(var(--ds-a-ry,0deg));
+}
+
+html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"] .hero-photo-b{
+  transform:rotate(-3.5deg) translate3d(var(--ds-b-x,0px),var(--ds-b-y,0px),var(--ds-b-z,0px)) rotateX(var(--ds-b-rx,0deg)) rotateY(var(--ds-b-ry,0deg));
+}
+
+/* Orbit decoration: only CSS geometry, no external assets */
+html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]::before,
+html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  border:1px solid rgba(10,10,10,.42);
+  border-radius:50%;
+  z-index:2;
+}
+
+html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]::before{
+  width:44%;
+  aspect-ratio:1.8;
+  right:-5%;
+  top:15%;
+  transform:rotate(-18deg);
+  animation:ds-orbit-a 13s linear infinite;
+}
+
+html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]::after{
+  width:30%;
+  aspect-ratio:1;
+  left:21%;
+  bottom:2%;
+  border-style:dashed;
+  animation:ds-orbit-b 16s linear infinite reverse;
+}
+
+@keyframes ds-orbit-a{
+  50%{transform:rotate(162deg) scale(1.045)}
+  100%{transform:rotate(342deg)}
+}
+@keyframes ds-orbit-b{
+  to{transform:rotate(360deg)}
+}
+
+/* Dynamic composition while scrolling */
+html[data-design-stack="orlica-pro"] .quote-break,
+html[data-design-stack="orlica-pro"] .process,
+html[data-design-stack="orlica-pro"] .finale{
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%);
+}
+
+html[data-design-stack="orlica-pro"] .quote-break p,
+html[data-design-stack="orlica-pro"] .finale-inner{
+  transform:translateX(calc((var(--ds-scroll,0) - .5) * 10px));
+}
+
+html[data-design-stack="orlica-pro"] .process-card:nth-child(2){
+  transform:translateY(-18px);
+}
+
+html[data-design-stack="orlica-pro"] .process-card:nth-child(3){
+  transform:translateY(10px);
+}
+
+html[data-design-stack="orlica-pro"] .display-heading{
+  max-width:100%;
+  height:auto;
+}
+
+/* Mobile keeps the editorial feel without turning the phone into a GPU benchmark. */
+@media (max-width:820px){
+  html[data-design-stack="orlica-pro"] body::before{
+    background:
+      linear-gradient(90deg,transparent calc(50% - .5px),var(--ds-soft) 50%,transparent calc(50% + .5px));
+  }
+  html[data-design-stack="orlica-pro"] .hero-stage::before{width:42vw;right:-8%;top:2%}
+  html[data-design-stack="orlica-pro"] .section-intro::before{left:auto;right:3%;width:34vw}
+  html[data-design-stack="orlica-pro"] .gallery::before{background-size:25% 100%}
+  html[data-design-stack="orlica-pro"] .process-card:nth-child(2),
+  html[data-design-stack="orlica-pro"] .process-card:nth-child(3){transform:none}
+  html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]::before{width:55%;right:-10%}
+  html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]::after{width:34%;left:10%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]::before,
+  html[data-design-stack="orlica-pro"] .hero-visual[data-motion="iso-focus"]::after{animation:none}
+  html[data-design-stack="orlica-pro"].motion-enhanced .gallery[data-motion="iso-cascade"] .work{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+  }
+}
