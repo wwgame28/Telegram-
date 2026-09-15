@@ -79,3 +79,22 @@
     setTimeout(()=>window.open('https://t.me/Sveta_orel09','_blank','noopener'),250);
   });
 })();
+
+// Load the optional design/motion layer after the core site is usable.
+(() => {
+  const cssHref = 'design-stack.css?v=1';
+  if (!document.querySelector(`link[href="${cssHref}"]`)) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = cssHref;
+    document.head.appendChild(link);
+  }
+
+  if (!document.querySelector('script[data-orlica-design-stack]')) {
+    const script = document.createElement('script');
+    script.src = 'design-stack.js?v=1';
+    script.defer = true;
+    script.dataset.orlicaDesignStack = '1';
+    document.body.appendChild(script);
+  }
+})();
